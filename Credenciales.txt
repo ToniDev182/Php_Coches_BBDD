@@ -1,0 +1,3 @@
+$cocheBBDD = new CocheBBDD('localhost', 'root', 'Ciclo2gs2025', 'prueba');
+
+
