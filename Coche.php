@@ -85,7 +85,7 @@ class Coche
         $this->fecha = $fecha;
     }
 
-    // Método toString()
+    // metodo tostring
     public function __toString()
     {
         return "Coche [ID: " . $this->id .

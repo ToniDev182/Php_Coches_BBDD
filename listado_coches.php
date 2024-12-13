@@ -77,14 +77,17 @@ if (isset($_POST['guardar_actualizacion'])) {
             <td><?php echo $coche->getFecha(); ?></td>
             <td>
                 <!-- Para eliminar el coche -->
-                <form method="POST" style="display:inline;">
+                <form method="POST">
                     <input type="hidden" name="id" value="<?php echo $coche->getId(); ?>">
                     <input type="submit" name="eliminar" value="Eliminar">
                 </form>
 
                 <!-- Para actualizar el coche -->
-                <form method="POST" style="display:inline;">
-                    <input type="hidden" name="id" value="<?php echo $coche->getId(); ?>">
+                <form method="POST">
+                    <!-- Serializar el objeto Coche completo -->
+                    <!-- urlencode(): Codifica los caracteres especiales
+                    para que puedan ser enviados a través de un formulario o URL de forma segura. -->
+                    <input type="hidden" name="coche_serializado" value="<?php echo urlencode(serialize($coche)); ?>">
                     <input type="submit" name="actualizar" value="Actualizar">
                 </form>
             </td>
@@ -93,17 +96,14 @@ if (isset($_POST['guardar_actualizacion'])) {
 </table>
 
 <br>
-<a href="index.php">Volver al inicio</a>
+<a href="Index.php">Volver al inicio</a>
 
 <?php
 // Mostrar el formulario de actualización si se seleccionó un coche para actualizar
 if (isset($_POST['actualizar'])) {
-    $id = $_POST['id'];
-    foreach ($coches as $coche) {
-        if ($coche->getId() == $id) {
-            break; // Salir del bucle una vez encontrado
-        }
-    }
+    // Deserializar el objeto Coche
+    $coche_serializado = urldecode($_POST['coche_serializado']);
+    $coche = unserialize($coche_serializado);
 
     // Formulario para cambiar los datos de un coche
     ?>
@@ -124,3 +124,9 @@ if (isset($_POST['actualizar'])) {
 
 </body>
 </html>
+
+<!-- Visualización de los Datos del Coche: En el momento en que el usuario hace clic en el botón
+de "Actualizar", el objeto Coche se serializa y se pasa como un valor oculto (hidden) en el
+formulario. Este objeto serializado contiene toda la información del coche que luego se
+deserializa cuando se recarga la página. -->
+

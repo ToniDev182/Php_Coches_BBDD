@@ -18,7 +18,6 @@ class CocheBBDD
             echo "Error en la conexion";
             $this->conexion = null;
         }
-
     }
 
 
@@ -30,7 +29,7 @@ class CocheBBDD
             return false;
         }
         /*La funcion prepare es un metodo de la clase mysqli que se utiliza para preparar una sentencia SQL antes de ejercutarla.*/
-        $consulta = $this->conexion->prepare(
+        $consulta = $this->conexion->prepare(     // query se utiliza con parametros dinamicos "?"
             "INSERT INTO coches (modelo, marca, matricula, precio, fecha) VALUES (?, ?, ?, ?, ?)"
         );
     // guardo el valor en variables ya que solo las variables pueden pasarse como referenia
@@ -61,7 +60,7 @@ class CocheBBDD
         }
 
         $resultados = [];
-        $consulta = $this->conexion->query("SELECT * FROM coches"); // query se utiliza con parametros dinamicos "?"
+        $consulta = $this->conexion->query("SELECT * FROM coches"); // para consultas que incluyan parametros
         while ($fila = $consulta->fetch_assoc()) { //Se utiliza para recuperar una fila de resultados de una consulta SQL como un array asociativo.
             $resultados[] = new Coche(
                 $fila['id'],
@@ -81,7 +80,7 @@ class CocheBBDD
             echo "No se pueden eliminar la coche en la base de datos";
             return false;
         }
-        // para consultas que incluyan parametros
+        // query se utiliza con parametros dinamicos "?"
         $consulta = $this->conexion->prepare("DELETE FROM coches WHERE id=?");
         $consulta->bind_param('i', $id);
         return $consulta->execute(); // Ejecuta la consulta
