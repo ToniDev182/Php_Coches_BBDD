@@ -10,9 +10,9 @@ $cocheBBDD = new CocheBBDD('localhost', 'root', 'Ciclo2gs2025', 'prueba');
 
 if (isset($_POST['guardar'])) {
     // Validar y obtener los datos del formulario
-    $matricula = $_POST['matricula'];
+    $matricula = $_POST['modelo'];
     $marca = $_POST['marca'];
-    $modelo = $_POST['modelo'];
+    $modelo = $_POST['matricula'];
     $precio = $_POST['precio'];
     $fecha = $_POST['fecha'];
 

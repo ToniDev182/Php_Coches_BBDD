@@ -32,7 +32,7 @@ class CocheBBDD
         $consulta = $this->conexion->prepare(     // query se utiliza con parametros dinamicos "?"
             "INSERT INTO coches (modelo, marca, matricula, precio, fecha) VALUES (?, ?, ?, ?, ?)"
         );
-    // guardo el valor en variables ya que solo las variables pueden pasarse como referenia
+        // guardo el valor en variables ya que solo las variables pueden pasarse como referenia
         $modelo = $coche->getModelo();
         $marca = $coche->getMarca();
         $matricula = $coche->getMatricula();
@@ -42,9 +42,9 @@ class CocheBBDD
         /* Al usar bind_param, se garantiza que los valores se interpretan correctamente según su tipo, lo que evita problemas con los tipos de datos.*/
         $consulta->bind_param(
             'sssds', // Indicamos el tipo de dato.
-            $matricula,
-            $marca,
             $modelo,
+            $marca,
+            $matricula,
             $precio,
             $fecha
         );
@@ -101,7 +101,7 @@ class CocheBBDD
         $id = $coche->getId();
 
         $consulta = $this->conexion->prepare(
-            "UPDATE coches SET matricula = ?, marca = ?, modelo = ?, precio = ?, fecha = ? WHERE id = ?"
+            "UPDATE coches SET modelo = ?, marca = ?, matricula = ?, precio = ?, fecha = ? WHERE id = ?"
         );
         $consulta->bind_param(
             'sssdsd',
